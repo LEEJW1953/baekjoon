@@ -1,3 +1,5 @@
+import sys
+
 def search(a, array):
     start=0
     end=len(array)-1
@@ -13,10 +15,10 @@ def search(a, array):
     return 0
 
 n=int(input())
-arr=list(map(int, input().split()))
+arr=list(map(int, sys.stdin.readline().split()))
 arr.sort()
 m=int(input())
-arr1=list(map(int, input().split()))
+arr1=list(map(int, sys.stdin.readline().split()))
 arr2=[]
 for i in range(m):
     arr2.append(search(arr1[i], arr))
