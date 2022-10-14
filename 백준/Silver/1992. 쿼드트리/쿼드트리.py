@@ -36,7 +36,5 @@ arr=[]
 for i in range(n):
     arr.append(input().rstrip())
 answer=[]
-# answer.append('(')
 div(arr)
-# answer.append(')')
 print(''.join(answer))
