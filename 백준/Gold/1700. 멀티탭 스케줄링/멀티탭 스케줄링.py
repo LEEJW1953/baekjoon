@@ -10,7 +10,8 @@ tmp=0
 tmp1=0
 for i in arr:
     if i in arr1:
-        pass
+        loc+=1
+        continue
     elif 0 in arr1:
         arr1[arr1.index(0)]=i
     else:
