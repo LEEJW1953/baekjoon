@@ -1,28 +1,28 @@
-N, K = map(int, input().split())
-scheduling = list(map(int, input().split()))
+import sys
+input=sys.stdin.readline
 
-adaptor = [0] * N
-count = 0
-scheduling_idx = 0
-tmp = 0
-tmp_i = 0
-
-for i in scheduling:
-    if i in adaptor:
+n, k = map(int, input().split())
+arr=list(map(int, input().split()))
+count=0
+arr1=[0]*n
+loc=0
+tmp=0
+tmp1=0
+for i in arr:
+    if i in arr1:
         pass
-    elif 0 in adaptor:
-        adaptor[adaptor.index(0)] = i
+    elif 0 in arr1:
+        arr1[arr1.index(0)]=i
     else:
-        for j in adaptor:
-            if j not in scheduling[scheduling_idx:]:
-                tmp = j
+        for j in arr1:
+            if j not in arr[loc:]:
+                tmp=j
                 break
-            elif scheduling[scheduling_idx:].index(j) > tmp_i:
-                tmp = j
-                tmp_i = scheduling[scheduling_idx:].index(j)
-        adaptor[adaptor.index(tmp)] = i
-        tmp = tmp_i = 0
-        count += 1
-    scheduling_idx += 1
-
+            elif arr[loc:].index(j)>tmp1:
+                tmp=j
+                tmp1=arr[loc:].index(j)
+        arr1[arr1.index(tmp)]=i
+        tmp=tmp1=0
+        count+=1
+    loc+=1
 print(count)
