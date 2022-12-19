@@ -1,36 +1,35 @@
 import sys
-input=sys.stdin.readline
 from collections import deque
+input=sys.stdin.readline
 
-sys.setrecursionlimit(111111)
-
-def dfs(x):
-    print(x, end=' ')
-    vis[x]=True
-    for i in range(1, n+1):
-        if not vis[i] and g[x][i]==1:
+def dfs(n):
+    visited[n]=True
+    print(n, end=' ')
+    for i in arr[n]:
+        if not visited[i]:
             dfs(i)
 
-def bfs(x):
-    q=deque()
-    q.append(x)
-    vis[x]=False
-    while q:
-        y=q.popleft()
-        print(y, end=' ')
-        for i in range(1, n+1):
-            if vis[i] and g[y][i]==1:
-                q.append(i)
-                vis[i]=False
+def bfs(n):
+    queue=deque([n])
+    visited[n]=True
+    while queue:
+        v=queue.popleft()
+        print(v, end=' ')
+        for i in arr[v]:
+            if not visited[i]:
+                queue.append(i)
+                visited[i]=True
 
 n, m, v=map(int, input().split())
-g=[[0]*(n+1) for _ in range(n+1)]
+arr=[[] for _ in range(n+1)]
+visited=[False]*(n+1)
 for i in range(m):
-    x, y = map(int, input().split())
-    g[y][x]=g[x][y]=1
-vis=[False]*(n+1)
+    a, b=map(int, input().split())
+    arr[a].append(b)
+    arr[b].append(a)
+for i in range(n+1):
+    arr[i].sort()
 dfs(v)
 print()
+visited=[False]*(n+1)
 bfs(v)
-# print(' '.join(list(map(str, dres))))
-# print(' '.join(list(map(str, bres))))
