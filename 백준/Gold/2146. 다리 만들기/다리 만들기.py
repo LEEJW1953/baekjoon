@@ -3,7 +3,6 @@ input=sys.stdin.readline
 from collections import deque
 
 def bfs(num):
-    global res
     q=deque()
     dis=[[-1]*n for _ in range(n)]
     for i in range(n):
@@ -19,7 +18,7 @@ def bfs(num):
             ny=y+dy[i]
             if 0<=nx<n and 0<=ny<n:
                 if arr[ny][nx] and arr[ny][nx]!=num:
-                    res=min(res, dis[y][x])
+                    res.append(dis[y][x])
                     return
                 elif (not arr[ny][nx]) and dis[ny][nx]==-1:
                     dis[ny][nx]=dis[y][x]+1
@@ -38,7 +37,7 @@ def island(a, b, num):
             ny=y+dy[i]
             if 0<=nx<n and 0<=ny<n:
                 if arr[ny][nx]==1 and not vis[ny][nx]:
-                    vis[ny][nx]=1
+                    vis[ny][nx]=True
                     q.append([nx, ny])
             else:
                 continue
@@ -47,8 +46,8 @@ n=int(input())
 arr=[]
 dx=[1, -1, 0, 0]
 dy=[0, 0, 1, -1]
-vis=[[0]*n for _ in range(n)]
-res=1e9
+vis=[[False]*n for _ in range(n)]
+res=[]
 for i in range(n):
     arr.append(list(map(int, input().split())))
 
@@ -61,4 +60,4 @@ for i in range(n):
 
 for i in range(2, num):
     bfs(i)
-print(res)
+print(min(res))
