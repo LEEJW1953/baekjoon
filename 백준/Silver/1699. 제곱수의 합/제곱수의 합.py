@@ -1,13 +1,13 @@
-import sys
-input=sys.stdin.readline
+sq = [i * i for i in range(1, 320)]
 
-n=int(input())
-dp=[1e9]*(n+1)
-for i in range(1, n+1):
-    if i**0.5==int(i**0.5):
-        dp[i]=1
-    else:
-        num=int(i**0.5)
-        for j in range(num//2, num+1):
-            dp[i]=min(dp[i], dp[j**2]+dp[i-j**2])
-print(dp[n])
+N = int(input())
+
+if N in sq: print(1)
+else:
+    for i in sq:
+        for j in sq:
+            if i + j == N: print(2); exit()
+    while N % 4 == 0:
+        N //= 4
+    if N % 8 == 7: print(4)
+    else: print(3)
