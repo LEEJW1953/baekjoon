@@ -2,16 +2,13 @@ import sys
 input=sys.stdin.readline
 from copy import deepcopy
 from collections import deque
+from itertools import product
 
 def game():
-    if len(arr)==5:
+    for i in product([0, 1, 2, 3], repeat=5):
         gg=deepcopy(g)
-        move(arr, gg)
-        return
-    for i in range(4):
-        arr.append(i)
-        game()
-        arr.pop()
+        move(i, gg)
+    return
 
 def move(arr, gg):
     global answer
