@@ -10,20 +10,15 @@ def give(arr, mid):
     else:
         return False
 
-def bina(arr, st, en):
-    mid=(st+en)//2
-    if mid<=st:
-        if give(arr, mid):
-            return mid
-        return 0
-    if give(arr, mid):
-        return bina(arr, mid, en)
-    else:
-        return bina(arr, st, mid)
-
 m, n = map(int, input().split())
 snack=list(map(int, input().split()))
 snack.sort(reverse=True)
 minn=1
 maxx=max(snack)
-print(bina(snack, minn, maxx+1))
+while minn<=maxx:
+    mid=(minn+maxx)//2
+    if give(snack, mid):
+        minn=mid+1
+    else:
+        maxx=mid-1
+print(maxx)
