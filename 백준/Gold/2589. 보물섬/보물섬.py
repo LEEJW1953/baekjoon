@@ -5,17 +5,20 @@ from collections import deque
 def bfs(x, y):
     q=deque()
     q.append((x, y))
-    vis={}
-    vis[(x, y)]=0
+    vis=[[0]*m for _ in range(n)]
+    vis[x][y]=1
+    res=0
     while q:
         xx, yy = q.popleft()
         for i in range(4):
             nx, ny = xx+dx[i], yy+dy[i]
             if 0<=nx<n and 0<=ny<m:
-                if g[nx][ny]=='L' and (nx, ny) not in vis.keys():
-                    vis[(nx, ny)]=vis[(xx, yy)]+1
-                    q.append([nx, ny])
-    return max(vis.values())
+                if g[nx][ny]=='L' and not vis[nx][ny]:
+                    vis[nx][ny]=vis[xx][yy]+1
+                    q.append((nx, ny))
+    for i in range(n):
+        res=max(res, max(vis[i]))
+    return res-1
 
 dx = [1, -1, 0, 0]
 dy = [0, 0, 1, -1]
