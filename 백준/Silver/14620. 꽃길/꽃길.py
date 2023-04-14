@@ -7,6 +7,8 @@ def pick(x, y):
         return
     for i in range(1, n-1):
         for j in range(1, n-1):
+            if i<=x and j<=y:
+                continue
             seed.append([i, j])
             pick(i, j)
             seed.pop()
