@@ -1,11 +1,13 @@
 import sys
 input=sys.stdin.readline
 
-n=int(input())
-t=0
-for i in range(1, n+1):
-    s=str(i)
-    t+=len(s)
-    if n<=t:
-        print(s[len(s)-(t-n+1)])
+t=int(input())-1
+for i in range(10):
+    c=(i+1)*9*10**i
+    if c<t:
+        t-=c
+    else:
+        s1=t//(i+1)
+        s2=t%(i+1)
+        print(str(10**i+s1)[s2])
         break
