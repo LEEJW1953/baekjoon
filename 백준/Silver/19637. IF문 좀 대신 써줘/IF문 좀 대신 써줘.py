@@ -16,7 +16,3 @@ stat=[list(map(str, input().split())) for _ in range(n)]
 for _ in range(m):
     c=int(input())
     print(stat[search(c)][0])
-    # for i in range(n):
-    #     if c<=int(stat[i][1]):
-    #         print(stat[i][0])
-    #         break
