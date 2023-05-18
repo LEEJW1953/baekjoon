@@ -5,16 +5,18 @@ n, m = map(int, input().split())
 k=int(input())
 res=[[0]*(m+1) for _ in range(n+1)]
 res[0][0]=1
-arr=[list(map(int, input().split())) for _ in range(k)]
-
+arr=[]
+for _ in range(k):
+    a, b, c, d = map(int, input().split())
+    arr.append([min(a, c), min(b, d), max(a, c), max(b, d)])
 for i in range(1, n+1):
     x, nx = i-1, i
     tmp=True
     for l in range(k):
-        a=min(arr[l][0], arr[l][2])
-        b=min(arr[l][1], arr[l][3])
-        c=max(arr[l][0], arr[l][2])
-        d=max(arr[l][1], arr[l][3])
+        a=arr[l][0]
+        b=arr[l][1]
+        c=arr[l][2]
+        d=arr[l][3]
         if (x, 0, nx, 0)==(a, b, c, d):
             tmp=False
     if tmp:
@@ -24,10 +26,10 @@ for i in range(1, m+1):
     y, ny = i-1, i
     tmp=True
     for l in range(k):
-        a=min(arr[l][0], arr[l][2])
-        b=min(arr[l][1], arr[l][3])
-        c=max(arr[l][0], arr[l][2])
-        d=max(arr[l][1], arr[l][3])
+        a=arr[l][0]
+        b=arr[l][1]
+        c=arr[l][2]
+        d=arr[l][3]
         if (0, y, 0, ny)==(a, b, c, d):
             tmp=False
     if tmp:
@@ -38,10 +40,10 @@ for i in range(1, n+1):
         x1, y1, x2, y2, nx, ny = i-1, j, i, j-1, i, j
         tmp1, tmp2 = True, True
         for l in range(k):
-            a=min(arr[l][0], arr[l][2])
-            b=min(arr[l][1], arr[l][3])
-            c=max(arr[l][0], arr[l][2])
-            d=max(arr[l][1], arr[l][3])
+            a=arr[l][0]
+            b=arr[l][1]
+            c=arr[l][2]
+            d=arr[l][3]
             if (x1, y1, nx, ny)==(a, b, c, d):
                 tmp1=False
             if (x2, y2, nx, ny)==(a, b, c, d):
