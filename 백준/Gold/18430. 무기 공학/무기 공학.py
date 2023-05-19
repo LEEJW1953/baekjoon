@@ -8,7 +8,8 @@ def boom(x, y, nx1, nx2, ny1, ny2):
 
 def boomerang(x, y, total):
     global ans
-    ans=max(ans, total)
+    if ans<total:
+        ans=total
     for i in range(n):
         for j in range(m):
             if i<x:
