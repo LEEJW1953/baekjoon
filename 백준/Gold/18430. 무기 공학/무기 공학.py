@@ -10,11 +10,9 @@ def boomerang(x, y, total):
     global ans
     if ans<total:
         ans=total
-    for i in range(n):
+    for i in range(x, n):
         for j in range(m):
-            if i<x:
-                continue
-            elif i==x and j<y:
+            if i==x and j<y:
                 continue
             elif vis[i][j]:
                 continue
