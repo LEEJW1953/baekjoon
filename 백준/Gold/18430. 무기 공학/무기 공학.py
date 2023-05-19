@@ -6,7 +6,7 @@ def boom(x, y, nx1, nx2, ny1, ny2):
         return wood[x][y]*2+wood[nx1][ny1]+wood[nx2][ny2]
     return 0
 
-def boomerang(x, y, total, num):
+def boomerang(x, y, total):
     global ans
     ans=max(ans, total)
     for i in range(n):
@@ -14,6 +14,8 @@ def boomerang(x, y, total, num):
             if i<x:
                 continue
             elif i==x and j<y:
+                continue
+            elif vis[i][j]:
                 continue
             else:
                 for k in range(4):
@@ -23,7 +25,7 @@ def boomerang(x, y, total, num):
                         vis[i][j]=1
                         vis[nx1][ny1]=1
                         vis[nx2][ny2]=1
-                        boomerang(i, j, total+t, num+1)
+                        boomerang(i, j, total+t)
                         vis[i][j]=0
                         vis[nx1][ny1]=0
                         vis[nx2][ny2]=0
@@ -36,5 +38,5 @@ vis=[[0]*m for _ in range(n)]
 ans=0
 for i in range(n):
     for j in range(m):
-        boomerang(i, j, 0, 1)
+        boomerang(i, j, 0)
 print(ans)
