@@ -3,9 +3,15 @@ input=sys.stdin.readline
 
 n=int(input())
 arr=list(map(int, input().split()))
-dp=[0]*(n+1)
-for i in range(n+1):
+dp=[[0]*n for _ in range(n)]
+ans=[0]*(n)
+for i in range(n):
+    minn, maxx = arr[i], arr[i]
+    for j in range(i, n):
+        minn=min(minn, arr[j])
+        maxx=max(maxx, arr[j])
+        dp[i][j]=maxx-minn
+for i in range(n):
     for j in range(i):
-        tmp=arr[i-j-1:i]
-        dp[i]=max(dp[i], dp[i-j-1]+max(tmp)-min(tmp))
-print(dp[-1])
+        ans[i]=max(ans[i], ans[j-1]+dp[j][i])
+print(ans[-1])
