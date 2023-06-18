@@ -27,6 +27,11 @@ for i in range(n):
     for j in combinations(range(n), i+1):
         tmp=[0]*26
         canMake=True
+        totalPrice=0
+        for k in range(i+1):
+            totalPrice+=prices[j[k]]
+        if ans<totalPrice:
+            continue
         for k in range(i+1):
             for l in range(26):
                 tmp[l]+=word[j[k]][l]
@@ -35,8 +40,5 @@ for i in range(n):
                 canMake=False
                 break
         if canMake:
-            totalPrice=0
-            for k in range(i+1):
-                totalPrice+=prices[j[k]]
             ans=min(ans, totalPrice)
 print(ans)
