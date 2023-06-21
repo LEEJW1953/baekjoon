@@ -29,8 +29,8 @@ def dfs(i, num):
 n=int(input())
 arr=list(map(int, input().split()))
 op=list(map(int, input().split()))
-minval=1e9
-maxval=-1e9
+minval=1e11
+maxval=-1e11
 res=[]
 dfs(1, arr[0])
 print(maxval)
