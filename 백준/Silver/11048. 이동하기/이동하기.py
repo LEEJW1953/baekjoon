@@ -11,5 +11,7 @@ for i in range(n):
         for k in range(3):
             nx, ny = i+move[k][0], j+move[k][1]
             if 0<=nx<n and 0<=ny<m:
-                dp[nx][ny]=max(dp[i][j]+g[nx][ny],dp[nx][ny])
+                tmp=dp[i][j]+g[nx][ny]
+                if dp[nx][ny]<tmp:
+                    dp[nx][ny]=tmp
 print(dp[-1][-1])
