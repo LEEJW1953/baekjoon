@@ -3,15 +3,8 @@ input=sys.stdin.readline
 
 n, m = map(int, input().split())
 g=[list(map(int, input().split())) for _ in range(n)]
-move=[[0, 1], [1, 0], [1, 1]]
-dp=[[0]*m for _ in range(n)]
-dp[0][0]=g[0][0]
-for i in range(n):
-    for j in range(m):
-        for k in range(3):
-            nx, ny = i+move[k][0], j+move[k][1]
-            if 0<=nx<n and 0<=ny<m:
-                tmp=dp[i][j]+g[nx][ny]
-                if dp[nx][ny]<tmp:
-                    dp[nx][ny]=tmp
-print(dp[-1][-1])
+dp=[[0]*(m+1) for _ in range(n+1)]
+for i in range(1, n+1):
+    for j in range(1, m+1):
+        dp[i][j]=max(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])+g[i-1][j-1]
+print(dp[n][m])
