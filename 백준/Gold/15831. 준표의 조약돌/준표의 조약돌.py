@@ -1,35 +1,48 @@
 import sys
 input=sys.stdin.readline
 
-def check(s):
-    count1, count2 = 0, 0
-    for i in range(len(s)):
-        if s[i]=='W':
-            count1+=1
-        if s[i]=='B':
-            count2+=1
-        if count2>b:
-            return 0
-    if count1<w:
+def check(bcount, wcount):
+    if b<bcount:
+        return 0
+    if wcount<w:
         return 1
     else:
         return 2
+
+def add(x, y):
+    global bcount, wcount
+    if g[x:y]=='B':
+        bcount+=1
+    elif g[x:y]=='W':
+        wcount+=1
+
+def sub(x, y):
+    global bcount, wcount
+    if g[x:y]=='B':
+        bcount-=1
+    elif g[x:y]=='W':
+        wcount-=1
 
 n, b, w = map(int, input().split())
 g=input().strip()
 ans=0
 left, right = 0, 1
+bcount, wcount = 0, 0
+add(left, right)
 while left<n:
-    s=g[left:right]
-    tmp=check(s)
+    tmp=check(bcount, wcount)
     if tmp==2:
-        ans=max(ans, len(s))
+        ans=max(ans, bcount+wcount)
         right+=1
+        add(right-1, right)
     elif tmp==1:
         right+=1
+        add(right-1, right)
     else:
         left+=1
+        sub(left-1, left)
     if right>n:
         right=n
         left+=1
+        sub(left-1, left)
 print(ans)
