@@ -32,6 +32,7 @@ for l in range(k):
     if arr[l] not in d:
         for i in range(n):
             for j in range(m):
-                dfs(i, j, '', arr[l])
+                if g[i][j]==arr[l][0]:
+                    dfs(i, j, g[i][j], arr[l])
         d[arr[l]]=count
-    print(d[arr[l]]//8)
+    print(d[arr[l]])
