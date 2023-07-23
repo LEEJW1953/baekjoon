@@ -7,27 +7,17 @@ minn, maxx = '', ''
 n=len(s)
 tmp1, tmp2 = 0, 0
 for i in range(n):
-    if i==(n-1):
-        if s[i]=='K':
-            maxx+=str(int(5*10**(tmp1)))
-            if tmp2:
-                minn+=str(int(10**(tmp2-1)))
-                minn+='5'
-            else:
-                minn+='5'
-        else:
-            maxx+='1'*(tmp1+1)
-            minn+=str(int(10**(tmp2)))
+    if s[i]=='K':
+        maxx+=str(5*10**(tmp1))
+        tmp1=0
+        if tmp2:
+            minn+=str(10**(tmp2-1))
+        minn+='5'
+        tmp2=0
     else:
-        if s[i]=='K':
-            maxx+=str(int(5*10**(tmp1)))
-            tmp1=0
-            if tmp2:
-                minn+=str(int(10**(tmp2-1)))
-                minn+='5'
-            else:
-                minn+='5'
-            tmp2=0
+        if i==(n-1):
+            maxx+='1'*(tmp1+1)
+            minn+=str(10**(tmp2))
         else:
             tmp1+=1
             tmp2+=1
