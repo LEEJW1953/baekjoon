@@ -9,8 +9,9 @@ else:
     arr=[]
 for i in range(10**n):
     tmp=True
+    target=str(i).zfill(n)
     for j in arr:
-        if j not in str(i).zfill(n):
+        if j not in target:
             tmp=False
             break
     if tmp:
