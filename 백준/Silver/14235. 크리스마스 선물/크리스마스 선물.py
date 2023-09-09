@@ -1,16 +1,16 @@
 import sys
 input=sys.stdin.readline
+from heapq import heappush, heappop
 
 n=int(input())
-stack=[]
+heap=[]
 for i in range(n):
     arr=list(map(int, input().split()))
     if arr[0]==0:
-        if stack:
-            print(stack.pop())
+        if heap:
+            print(-1*heappop(heap))
         else:
             print(-1)
     else:
         for j in arr[1:]:
-            stack.append(j)
-        stack.sort()
+            heappush(heap, -1*j)
