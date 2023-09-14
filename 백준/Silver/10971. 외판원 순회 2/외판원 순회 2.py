@@ -3,6 +3,8 @@ input=sys.stdin.readline
 
 def f(s, x, d, count):
     global ans
+    if d>ans:
+        return
     if 0 not in vis:
         ans=min(ans, d)
         return
