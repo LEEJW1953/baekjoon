@@ -6,21 +6,11 @@ d={}
 for i in range(q):
     goal=int(input())
     loc=goal
-    parent=[loc]
-    i=0
-    go=True
+    block=0
     while loc>1:
-        tmp=loc%2
-        if tmp:
-            loc-=1
+        if loc in d:
+            block=loc
         loc//=2
-        parent.append(loc)
-    parent.sort()
-    for node in parent:
-        if node in d:
-            print(node)
-            go=False
-            break
-    if go:
-        print(0)
+    if not block:
         d[goal]=1
+    print(block)
