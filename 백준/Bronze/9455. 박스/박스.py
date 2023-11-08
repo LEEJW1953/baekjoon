@@ -7,11 +7,10 @@ for _ in range(t):
     g=[list(map(int, input().split())) for _ in range(m)]
     ans=0
     for i in range(n):
-        for j in range(m-1, -1, -1):
+        count=0
+        for j in range(m):
             if g[j][i]:
-                count=0
-                for k in range(m-1, j-1, -1):
-                    if not g[k][i]:
-                        count+=1
+                count+=1
+            else:
                 ans+=count
     print(ans)
