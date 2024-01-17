@@ -16,16 +16,11 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         k = Integer.parseInt(st.nextToken());
         int tmp = 0;
-        if (k == 1) {
-            tmp = (int) Math.ceil(Math.log(n) / Math.log(2)) - 1;
-            System.out.println((int) Math.pow(2, tmp + 1) - n);
-        } else {
-            for (int i = 0; i < k - 1; i++) {
-                tmp = (int) Math.floor(Math.log(n) / Math.log(2));
-                n -= (int) Math.pow(2, tmp);
-            }
-            tmp = (int) Math.ceil(Math.log(n) / Math.log(2)) - 1;
-            System.out.println((int) Math.pow(2, tmp + 1) - n);
+        for (int i = 0; i < k - 1; i++) {
+            tmp = (int) Math.floor(Math.log(n) / Math.log(2));
+            n -= (int) Math.pow(2, tmp);
         }
+        tmp = (int) Math.ceil(Math.log(n) / Math.log(2)) - 1;
+        System.out.println((int) Math.pow(2, tmp + 1) - n);
     }
 }
