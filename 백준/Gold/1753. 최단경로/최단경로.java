@@ -6,6 +6,7 @@ import java.util.*;
 public class Main {
 
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static StringBuilder sb = new StringBuilder();
     static int V, E, K;
     static int INF = Integer.MAX_VALUE;
     static List<Node>[] g;
@@ -35,8 +36,9 @@ public class Main {
 
         dik(K);
         for (int i = 1; i <= V; i++) {
-            System.out.println(vis[i] == INF ? "INF" : vis[i]);
+            sb.append(vis[i] == INF ? "INF" : vis[i]).append("\n");
         }
+        System.out.println(sb);
     }
 
     public static void dik(int k) {
