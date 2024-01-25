@@ -14,7 +14,8 @@ public class Main {
 		for (int i = 0; i < t; i++) {
 			st = new StringTokenizer(br.readLine());
 			String[] arr = st.nextToken().split(",");
-			System.out.println(Integer.parseInt(arr[0]) + Integer.parseInt(arr[1]));
+			sb.append(Integer.parseInt(arr[0]) + Integer.parseInt(arr[1])).append("\n");
 		}
+		System.out.println(sb);
 	}
 }
