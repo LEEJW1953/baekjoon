@@ -6,9 +6,7 @@ public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static int[][] g = new int[19][19];
 	static int[] dx = { 0, 1, 1, -1 };
-	static int[] dx1 = { 0, -1, -1, 1 };
 	static int[] dy = { 1, 0, 1, 1 };
-	static int[] dy1 = { -1, 0, -1, -1 };
 	static int winner = 0;
 
 	static int row, col;
@@ -41,8 +39,8 @@ public class Main {
 			int ny = y;
 			int count = 1;
 
-			int checkX = x + dx1[i];
-			int checkY = y + dy1[i];
+			int checkX = x - dx[i];
+			int checkY = y - dy[i];
 
 			if (!(19 <= checkX || checkX < 0 || 19 <= checkY || checkY < 0)) {
 				if (g[checkX][checkY] == stone) {
