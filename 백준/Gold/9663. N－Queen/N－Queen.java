@@ -1,14 +1,3 @@
-/**
- * @author 이지원
- * @date 24.01.31
- * @link https://swexpertacademy.com/main/talk/solvingClub/problemView.do?solveclubId=AY0LFFoqrIIDFAXz&contestProbId=AV5PobmqAPoDFAUq&probBoxId=AY0LFFoqrIMDFAXz+&type=PROBLEM&problemBoxTitle=0129%EC%A3%BC&problemBoxCnt=++6+
- * @keyword_solution 이차원 베열을 순회하며 한 칸씩 숫자를 채운다
- * @input 첫 줄에는 테스트 케이스의 수 T, 그 아래 T개의 줄에 달팽이의 크기 N
- * @output 달팽이 숫자의 이차원 배열 출력
- * @time_complex O(n ^ 2)
- * @perf
- */
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
