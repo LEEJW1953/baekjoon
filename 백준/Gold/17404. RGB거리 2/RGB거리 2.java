@@ -5,7 +5,6 @@ import java.util.StringTokenizer;
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringTokenizer st;
-	static StringBuilder sb = new StringBuilder();
 	static int n;
 	static int[][] rgb;
 	static int[][] dp;
@@ -24,44 +23,22 @@ public class Main {
 			}
 		}
 
-		dp = new int[n + 1][3];
-		dp[1][0] = rgb[0][0];
-		dp[1][1] = 10000000;
-		dp[1][2] = 10000000;
-		for (int i = 2; i <= n; i++) {
-			for (int j = 0; j < 3; j++) {
-				int r1 = (j + 1) % 3;
-				int r2 = (j + 2) % 3;
-				dp[i][j] = Math.min(dp[i - 1][r1], dp[i - 1][r2]) + rgb[i - 1][j];
+		for (int k = 0; k < 3; k++) {
+			int h1 = k % 3;
+			int h2 = (k + 1) % 3;
+			int h3 = (k + 2) % 3;
+			dp[1][h1] = rgb[0][h1];
+			dp[1][h2] = 10000000;
+			dp[1][h3] = 10000000;
+			for (int i = 2; i <= n; i++) {
+				for (int j = 0; j < 3; j++) {
+					int r1 = (j + 1) % 3;
+					int r2 = (j + 2) % 3;
+					dp[i][j] = Math.min(dp[i - 1][r1], dp[i - 1][r2]) + rgb[i - 1][j];
+				}
 			}
+			ans = (Math.min(ans, Math.min(dp[n][h2], dp[n][h3])));
 		}
-		ans = (Math.min(ans, Math.min(dp[n][1], dp[n][2])));
-
-		dp = new int[n + 1][3];
-		dp[1][1] = rgb[0][1];
-		dp[1][0] = 10000000;
-		dp[1][2] = 10000000;
-		for (int i = 2; i <= n; i++) {
-			for (int j = 0; j < 3; j++) {
-				int r1 = (j + 1) % 3;
-				int r2 = (j + 2) % 3;
-				dp[i][j] = Math.min(dp[i - 1][r1], dp[i - 1][r2]) + rgb[i - 1][j];
-			}
-		}
-		ans = (Math.min(ans, Math.min(dp[n][0], dp[n][2])));
-
-		dp = new int[n + 1][3];
-		dp[1][2] = rgb[0][2];
-		dp[1][0] = 10000000;
-		dp[1][1] = 10000000;
-		for (int i = 2; i <= n; i++) {
-			for (int j = 0; j < 3; j++) {
-				int r1 = (j + 1) % 3;
-				int r2 = (j + 2) % 3;
-				dp[i][j] = Math.min(dp[i - 1][r1], dp[i - 1][r2]) + rgb[i - 1][j];
-			}
-		}
-		ans = (Math.min(ans, Math.min(dp[n][0], dp[n][1])));
 
 		System.out.println(ans);
 	}
