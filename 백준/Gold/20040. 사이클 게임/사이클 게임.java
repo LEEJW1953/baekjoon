@@ -23,6 +23,7 @@ public class Main {
 			int y = Integer.parseInt(st.nextToken());
 			if (find(x) == find(y) && ans == 0) {
 				ans = i;
+                break;
 			} else {
 				union(x, y);
 			}
