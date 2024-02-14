@@ -47,13 +47,6 @@ public class Main {
                 sb.append(0 + " ");
                 continue;
             }
-            // 각 팀마다 승 + 무 + 패 = 5
-            for (int j = 0; j < 6; j++) {
-                if (Arrays.stream(res[j]).sum() != 5) {
-                    sb.append(0 + " ");
-                    continue loop;
-                }
-            }
             sb.append(dfs(0) ? 1 : 0).append(" ");
         }
         System.out.println(sb);
