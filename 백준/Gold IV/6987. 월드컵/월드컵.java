@@ -2,11 +2,12 @@
  * @author 이지원
  * @date 24.02.14
  * @link https://www.acmicpc.net/problem/6987
- * @keyword_solution 
- * @input 
- * @output 
- * @time_complex 
- * @perf 
+ * @keyword_solution 6팀의 조별리그는 총 15경기 필요
+ * 모든 경기의 모든 결과(승, 무, 패)를 확인하여 유효성 판단
+ * @input 4가지 경기 결과
+ * @output 가능한 결과는 1, 불가능한 결과는 0 출력
+ * @time_complex
+ * @perf
  */
 
 import java.io.BufferedReader;
@@ -16,80 +17,79 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	static StringTokenizer st;
-	static StringBuilder sb = new StringBuilder();
-	static int g[][] = new int[6][3], ans, tmp[][];
-	static boolean[][] vis;
-	static int[] home = { 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4 };
-	static int[] away = { 1, 2, 3, 4, 5, 2, 3, 4, 5, 3, 4, 5, 4, 5, 5 };
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static StringTokenizer st;
+    static StringBuilder sb = new StringBuilder();
+    static int idx = 0, res[][] = new int[6][3], game[][] = new int[15][2];
 
-	public static void main(String[] args) throws IOException {
-		loop: for (int i = 0; i < 4; i++) {
-			st = new StringTokenizer(br.readLine());
-			ans = 0;
-			int total = 0;
-			for (int j = 0; j < 6; j++) {
-				for (int k = 0; k < 3; k++) {
-					int num = Integer.parseInt(st.nextToken());
-					g[j][k] = num;
-					total += num;
-				}
-			}
-			if (total != 30) {
-				sb.append(ans + " ");
-				continue;
-			}
-			for (int j = 0; j < 6; j++) {
-				if (Arrays.stream(g[j]).sum() != 5) {
-					sb.append(ans + " ");
-					continue loop;
-				}
-			}
-			tmp = new int[6][3];
-			vis = new boolean[6][6];
-			dfs(0);
-			sb.append(ans + " ");
-		}
-		System.out.println(sb);
-	}
+    public static void main(String[] args) throws IOException {
+        // 전체 경기 경우의 수
+        for (int i = 0; i < 6; i++) {
+            for (int j = i + 1; j < 6; j++) {
+                game[idx][0] = i;
+                game[idx++][1] = j;
+            }
+        }
 
-	static void dfs(int d) {
-		if (d == 15) {
-			check();
-			return;
-		}
-		tmp[home[d]][0]++;
-		tmp[away[d]][2]++;
-		dfs(d + 1);
-		tmp[home[d]][0]--;
-		tmp[away[d]][2]--;
+        loop:
+        for (int i = 0; i < 4; i++) {
+            st = new StringTokenizer(br.readLine());
+            int total = 0;
+            for (int j = 0; j < 6; j++) {
+                for (int k = 0; k < 3; k++) {
+                    int num = Integer.parseInt(st.nextToken());
+                    res[j][k] = num;
+                    total += num;
+                }
+            }
+            // 총 15경기이므로 전체 결과의 합은 30
+            if (total != 30) {
+                sb.append(0 + " ");
+                continue;
+            }
+            // 각 팀마다 승 + 무 + 패 = 5
+            for (int j = 0; j < 6; j++) {
+                if (Arrays.stream(res[j]).sum() != 5) {
+                    sb.append(0 + " ");
+                    continue loop;
+                }
+            }
+            sb.append(dfs(0) ? 1 : 0).append(" ");
+        }
+        System.out.println(sb);
+    }
 
-		tmp[home[d]][1]++;
-		tmp[away[d]][1]++;
-		dfs(d + 1);
-		tmp[home[d]][1]--;
-		tmp[away[d]][1]--;
-
-		tmp[home[d]][2]++;
-		tmp[away[d]][0]++;
-		dfs(d + 1);
-		tmp[home[d]][2]--;
-		tmp[away[d]][0]--;
-	}
-
-	static boolean check() {
-		if (ans == 1) {
-			return true;
-		}
-		for (int i = 0; i < 6; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (g[i][j] != tmp[i][j]) {
-					return false;
-				}
-			}
-		}
-		ans = 1;
-		return true;
-	}
+    static boolean dfs(int d) {
+        if (d == 15) {
+            return true;
+        }
+        // 이번 경기를 하는 두 팀
+        int team1 = game[d][0];
+        int team2 = game[d][1];
+        // 1팀 승리
+        if (0 <= --res[team1][0] & 0 <= --res[team2][2]) {
+            if (dfs(d + 1)) {
+                return true;
+            }
+        }
+        res[team1][0]++;
+        res[team2][2]++;
+        // 무승부
+        if (0 <= --res[team1][1] & 0 <= --res[team2][1]) {
+            if (dfs(d + 1)) {
+                return true;
+            }
+        }
+        res[team1][1]++;
+        res[team2][1]++;
+        // 2팀 승리
+        if (0 <= --res[team1][2] & 0 <= --res[team2][0]) {
+            if (dfs(d + 1)) {
+                return true;
+            }
+        }
+        res[team1][2]++;
+        res[team2][0]++;
+        return false;
+    }
 }
