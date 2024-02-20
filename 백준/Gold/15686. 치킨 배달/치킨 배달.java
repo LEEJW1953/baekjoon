@@ -9,9 +9,9 @@ public class Main {
 	static StringTokenizer st;
 	static int n, m;
 	static int[][] g;
-	static List<Coord> chicken = new ArrayList<>();
-	static List<Coord> selected = new ArrayList<>();
-	static List<Coord> home = new ArrayList<>();
+	static List<Coord> chicken = new ArrayList<Coord>();
+	static List<Coord> home = new ArrayList<Coord>();
+	static boolean[] selected;
 	static int ans = Integer.MAX_VALUE;
 
 	public static void main(String[] args) throws Exception {
@@ -30,6 +30,7 @@ public class Main {
 				}
 			}
 		}
+		selected = new boolean[chicken.size()];
 
 		select(0, 0);
 		System.out.println(ans);
@@ -40,18 +41,25 @@ public class Main {
 			int total = 0;
 			for (Coord h : home) {
 				int tmp = Integer.MAX_VALUE;
-				for (Coord chk : selected) {
+				for (int i = 0; i < chicken.size(); i++) {
+					if (!selected[i]) {
+						continue;
+					}
+					Coord chk = chicken.get(i);
 					tmp = Math.min(tmp, h.compareTo(chk));
 				}
 				total += tmp;
+				if (total > ans) {
+					return;
+				}
 			}
 			ans = Math.min(ans, total);
 			return;
 		}
 		for (int i = idx; i < chicken.size(); i++) {
-			selected.add(chicken.get(i));
+			selected[i] = true;
 			select(d + 1, i + 1);
-			selected.remove(selected.size() - 1);
+			selected[i] = false;
 		}
 	}
 }
@@ -65,7 +73,6 @@ class Coord implements Comparable<Coord> {
 		this.y = y;
 	}
 
-	@Override
 	public int compareTo(Coord o) {
 		return Math.abs(this.x - o.x) + Math.abs(this.y - o.y);
 	}
