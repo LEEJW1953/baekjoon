@@ -7,7 +7,7 @@ public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringBuilder sb = new StringBuilder();
 	static StringTokenizer st;
-	static int n, m, total = 0, maxx = 0;
+	static int n, m, total = 0, maxx = 0, count = 0;
 	static int[] p;
 	static PriorityQueue<Edge> pq = new PriorityQueue<Edge>();
 
@@ -27,15 +27,16 @@ public class Main {
 			pq.offer(new Edge(a, b, c));
 		}
 
-		while (!pq.isEmpty()) {
+		while (!pq.isEmpty() || count < n - 1) {
 			Edge e = pq.poll();
 			int a = e.from;
 			int b = e.to;
 			int d = e.dist;
 			if (find(a) != find(b)) {
+				count++;
 				union(a, b);
 				total += d;
-				maxx = Math.max(maxx, d);
+				maxx = d;
 			}
 		}
 		System.out.println(total - maxx);
