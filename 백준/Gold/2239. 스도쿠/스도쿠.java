@@ -4,6 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/**
+ * @author 이지원
+ * @date 24.03.27
+ * @link
+ * @keyword_solution
+ * @input
+ * @output
+ * @time_complex
+ * @perf
+ */
+
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringBuilder sb = new StringBuilder();
@@ -13,9 +24,9 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		for (int i = 0; i < 9; i++) {
-			char[] arr = br.readLine().toCharArray();
+			String s = br.readLine();
 			for (int j = 0; j < 9; j++) {
-				int num = arr[j] - '0';
+				int num = s.charAt(j) - '0';
 				g[i][j] = num;
 				if (num == 0)
 					blank.add(new int[] { i, j });
@@ -28,10 +39,11 @@ public class Main {
 		if (d == blank.size()) {
 			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++) {
-					System.out.print(g[i][j]);
+					sb.append(g[i][j]);
 				}
-				System.out.println();
+				sb.append("\n");
 			}
+			System.out.println(sb);
 			System.exit(0);
 		}
 		for (int i = 1; i <= 9; i++) {
