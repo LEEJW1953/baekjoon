@@ -11,6 +11,8 @@ public class Main {
 	static int R, C, answer = 1;
 	static int[] dx = { 0, 1, 0, -1 }, dy = { 1, 0, -1, 0 };
 	static char[][] g;
+	static Deque<Node> water = new ArrayDeque<>();
+	static Deque<Node> S = new ArrayDeque<>();
 
 	public static void main(String[] args) throws Exception {
 		st = new StringTokenizer(br.readLine());
@@ -22,34 +24,34 @@ public class Main {
 			for (int j = 0; j < C; j++) {
 				char c = s.charAt(j);
 				g[i][j] = c;
+				if (c == 'S') {
+					S.offer(new Node(i, j));
+				}
+				if (c == '*') {
+					water.offer(new Node(i, j));
+				}
 			}
 		}
 
-		while (check()) {
-			moveS();
+		while (!S.isEmpty()) {
 			moveWater();
+			moveS();
 			answer++;
 		}
 		System.out.println("KAKTUS");
 	}
 
 	static void moveWater() {
-		Deque<Node> q = new ArrayDeque<>();
-		for (int i = 0; i < R; i++) {
-			for (int j = 0; j < C; j++) {
-				if (g[i][j] == '*')
-					q.offer(new Node(i, j));
-			}
-		}
-		while (!q.isEmpty()) {
-			Node node = q.poll();
-			int x = node.x, y = node.y;
+		int len = water.size();
+		while (len-- > 0) {
+			Node node = water.poll();
 			for (int i = 0; i < 4; i++) {
-				int nx = x + dx[i];
-				int ny = y + dy[i];
+				int nx = node.x + dx[i];
+				int ny = node.y + dy[i];
 				if (0 <= nx && nx < R && 0 <= ny && ny < C) {
 					if (g[nx][ny] == 'S' || g[nx][ny] == '.') {
 						g[nx][ny] = '*';
+						water.offer(new Node(nx, ny));
 					}
 				}
 			}
@@ -57,47 +59,24 @@ public class Main {
 	}
 
 	static void moveS() {
-		Deque<Node> q = new ArrayDeque<>();
-		Deque<Node> result = new ArrayDeque<>();
-		for (int i = 0; i < R; i++) {
-			for (int j = 0; j < C; j++) {
-				if (g[i][j] == 'S')
-					q.offer(new Node(i, j));
-			}
-		}
-		while (!q.isEmpty()) {
-			Node node = q.poll();
-			int x = node.x, y = node.y;
-			g[x][y] = '.';
+		int len = S.size();
+		while (len-- > 0) {
+			Node node = S.poll();
 			for (int i = 0; i < 4; i++) {
-				int nx = x + dx[i];
-				int ny = y + dy[i];
+				int nx = node.x + dx[i];
+				int ny = node.y + dy[i];
 				if (0 <= nx && nx < R && 0 <= ny && ny < C) {
 					if (g[nx][ny] == 'D') {
 						System.out.println(answer);
 						System.exit(0);
 					}
 					if (g[nx][ny] == '.') {
-						result.offer(new Node(nx, ny));
+						g[nx][ny] = 'S';
+						S.offer(new Node(nx, ny));
 					}
 				}
 			}
 		}
-		while (!result.isEmpty()) {
-			Node node = result.poll();
-			g[node.x][node.y] = 'S';
-		}
-	}
-
-	static boolean check() {
-		for (int i = 0; i < R; i++) {
-			for (int j = 0; j < C; j++) {
-				if (g[i][j] == 'S') {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	static class Node {
