@@ -4,11 +4,11 @@ import java.io.InputStreamReader;
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringBuilder sb = new StringBuilder();
-//	static StringTokenizer st;
 	static int[][] g = new int[9][9];
-	static boolean[][] row = new boolean[9][10];
-	static boolean[][] col = new boolean[9][10];
-	static boolean[][] square = new boolean[9][10];
+	static int[] row = new int[9];
+	static int[] col = new int[9];
+	static int[] square = new int[9];
+	static int[] log = new int[513];
 
 	public static void main(String[] args) throws Exception {
 		for (int i = 0; i < 9; i++) {
@@ -17,11 +17,14 @@ public class Main {
 				int num = s.charAt(j) - '0';
 				g[i][j] = num;
 				if (num != 0) {
-					row[i][num] = true;
-					col[j][num] = true;
-					square[(i / 3) * 3 + (j / 3)][num] = true;
+					row[i] |= 1 << num;
+					col[j] |= 1 << num;
+					square[(i / 3) * 3 + (j / 3)] |= 1 << num;
 				}
 			}
+		}
+		for (int i = 1; i <= 9; i++) {
+			log[1 << i] = i;
 		}
 		dfs(0);
 	}
@@ -45,16 +48,18 @@ public class Main {
 		}
 		int block = (x / 3) * 3 + (y / 3);
 		for (int i = 1; i <= 9; i++) {
-			if (!row[x][i] && !col[y][i] && !square[block][i]) {
-				g[x][y] = i;
-				row[x][i] = true;
-				col[y][i] = true;
-				square[block][i] = true;
+			int used = row[x] | col[y] | square[block];
+			int num = 1 << i;
+			if ((num & used) != num) {
+				g[x][y] = log[num];
+				row[x] |= num;
+				col[y] |= num;
+				square[block] |= num;
 				dfs(d + 1);
 				g[x][y] = 0;
-				row[x][i] = false;
-				col[y][i] = false;
-				square[block][i] = false;
+				row[x] &= ~num;
+				col[y] &= ~num;
+				square[block] &= ~num;
 			}
 		}
 	}
