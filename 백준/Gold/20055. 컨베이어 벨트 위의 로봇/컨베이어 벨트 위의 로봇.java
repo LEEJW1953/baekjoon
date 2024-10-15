@@ -6,7 +6,6 @@ public class Main {
     static StringTokenizer st;
     static int n, k, count = 0, ans = 0;
     static int[][] belt;
-    static List<Integer> robots = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         st = new StringTokenizer(br.readLine());
