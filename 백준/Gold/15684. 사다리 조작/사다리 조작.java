@@ -29,9 +29,13 @@ public class Main {
         if (x > k) {
             return;
         }
-        if (x == k && check()) {
-            System.out.println(x);
-            System.exit(0);
+        if (x == k) {
+            if (check()) {
+                System.out.println(x);
+                System.exit(0);
+            } else {
+                return;
+            }
         }
         for (int i = a; i < h; i++) {
             for (int j = 0; j < n; j++) {
