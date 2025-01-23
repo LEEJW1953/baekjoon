@@ -1,5 +1,6 @@
 def solution(points, routes):
-    d = dict()
+    answer = 0
+    coord = dict()
     for i in range(len(routes)):
         t = 0
         for j in range(len(routes[i]) - 1):
@@ -18,24 +19,20 @@ def solution(points, routes):
             while True:
                 if (x == end[0] and y == end[1]):
                     break
-                if (t, x, y) in d:
-                    d[(t, x, y)] += 1
-                else:
-                    d[(t, x, y)] = 0
+                if (t, x, y) not in coord:
+                    coord[(t, x, y)] = 0
+                elif coord[(t, x, y)] == 0:
+                    coord[(t, x, y)] += 1
+                    answer += 1
                 t += 1
                 if x != end[0]:
                     x += dx
                     continue
                 if y!= end[1]:
                     y += dy
-                
-        if (t, x, y) in d:
-            d[(t, x, y)] += 1
-        else:
-            d[(t, x, y)] = 0
-    answer = 0
-    result = list(d.values())
-    for i in range(len(result)):
-        if result[i]:
+        if (t, x, y) not in coord:
+            coord[(t, x, y)] = 0
+        elif coord[(t, x, y)] == 0:
+            coord[(t, x, y)] += 1
             answer += 1
     return answer
